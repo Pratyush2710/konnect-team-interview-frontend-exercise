@@ -1,11 +1,5 @@
 <template>
-  <header>
-    <div class="nav">
-      <router-link to="/">
-        Home
-      </router-link>
-    </div>
-  </header>
+  <HeaderComponent />
   <main>
     <router-view />
   </main>
@@ -13,28 +7,16 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import HeaderComponent from '@/components/Header.vue'
 
 export default defineComponent({
   name: 'App',
+  components:{
+    HeaderComponent
+  }
 })
 </script>
 
-<style lang="scss" scoped>
-.nav {
-  border-bottom: 1px solid #333;
-  margin-bottom: 4rem;
-  padding: 16px;
-
-  a {
-    color: blue;
-    font-weight: 700;
-
-    &.router-link-exact-active {
-      color: green;
-    }
-  }
-}
-</style>
 
 <style lang="scss">
 // Unscoped styles for html and body
@@ -50,5 +32,11 @@ body {
   font-weight: 400;
   line-height: 1.2;
   margin: 0 auto;
+}
+*,
+*::before,
+*::after {
+  /* consistent box model across all elements */
+  box-sizing: border-box;
 }
 </style>
