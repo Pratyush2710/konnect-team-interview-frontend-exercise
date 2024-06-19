@@ -13,7 +13,7 @@
 <script lang="ts">
 
 
-import { defineComponent } from "vue";
+import { defineComponent, type PropType } from "vue";
 import { type Developer } from '@/common/types.ts'
 export default defineComponent({
     name: "AvatarTiles",
@@ -34,7 +34,7 @@ export default defineComponent({
         offsetUsersCount(): number {
             return this.totalUsersCount > this.limit ? this.totalUsersCount - this.limit : 0
         },
-        usersToBeListed(): number {
+        usersToBeListed(): Developer[] {
             return this.users.slice(0, this.limit)
         }
     }

@@ -35,13 +35,14 @@
 <script lang="ts">
 
 import { defineComponent, type PropType } from "vue";
-import { type Service } from "@/common/types.ts";
+import { type Metrics } from "@/common/types.ts";
 export default defineComponent({
     name: "ServiceMetrics",
     props: {
         metrics: {
-            type: Object as PropType<Service['metrics']>,
+            type: Object as PropType<Metrics>,
             required: true,
+            default: () => ({})
         },
         configured: {
             type: Boolean,

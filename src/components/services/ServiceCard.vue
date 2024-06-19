@@ -24,7 +24,7 @@ import { defineComponent, type PropType } from "vue";
 import StatusBar from "@/components/common/StatusBar.vue";
 import ServiceMetrics from "@/components/services/ServiceMetrics.vue";
 import AvatarTiles from "@/components/common/AvatarTiles.vue";
-import { type Service } from "@/common/types.ts";
+import { type Service, type Developer } from "@/common/types.ts";
 
 export default defineComponent({
   name: "ServiceCard",
@@ -42,11 +42,11 @@ export default defineComponent({
   setup() {
     const getUniqueDeveloperList = (serviceItem: Service): Array<Developer> => {
       const developerSet = new Set();
-      const unique = [];
+      const unique = [] as Developer[];
       for (const item of serviceItem.versions) {
         if (!developerSet.has(item?.developer?.id)) {
           developerSet.add(item?.developer?.id);
-          unique.push(item.developer);
+          unique.push(item.developer as Developer);
         }
       }
 
