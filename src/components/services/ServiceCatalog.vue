@@ -5,62 +5,71 @@
         <p class="title">Service Hub</p>
         <p class="subtitle">
           Organize services, manage and track versioning and API service
-          documentation.
+          documentation. <a href="/docs">Learn More</a>
+
         </p>
       </div>
       <div class="input-container">
         <label>
-          <input
-            v-model="searchQuery"
-            class="search-input"
-            data-testid="search-input"
-            placeholder="Search"
-            type="search"
-          />
+          <input v-model="searchQuery" class="search-input" data-testid="search-input" placeholder="Search"
+            type="search" />
         </label>
 
-        <button class="service-package" @click="handleCreateServiceClick">
-          + Service Package
-        </button>
+        <PrimaryButton @click:event="createNewService()" :label="`+ Service Package`" />
       </div>
     </div>
 
-    <ul v-if="services.length" class="catalog">
-      <li v-for="service in services" :key="service.id" class="service">
-        <div>
-          <p>
-            {{ service.name }}
-          </p>
-          <p>{{ service.description }}</p>
-        </div>
-      </li>
-    </ul>
+    <div v-if="paginatedListItems.length" class="catalog">
+      <section v-for="service in paginatedListItems" :key="service.id" class="service-card">
+        <ServiceCard :service="service" />
+      </section>
+    </div>
     <div v-else data-testid="no-results">No services</div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from "vue";
+import { defineComponent, watch } from "vue";
 import useDebouncedRef from "@/composables/useDebouncedRef";
 import useServices from "@/composables/useServices";
+import useGetPaginatedData from "@/composables/useGetPaginatedData";
+import ServiceCard from "@/components/services/ServiceCard.vue";
+import PrimaryButton from '@/components/common/PrimaryButton.vue'
 
 export default defineComponent({
   name: "ServiceCatalog",
+  components: {
+    ServiceCard,
+    PrimaryButton
+  },
   setup() {
     // Import services from the composable
-    const { services, loading } = useServices();
+    const { services, loading, getServices } = useServices();
 
     // Set the search string to a Vue ref
     const searchQuery = useDebouncedRef("", 300);
+
+    const { currentPage, totalPageCount, paginatedListItems } =
+      useGetPaginatedData(services);
+
     watch(searchQuery, (newQuery) => {
       console.log({ newQuery });
-      // init an API request
+      // Fetch services based on queryParam
+      getServices();
     });
+
+    const createNewService = () => {
+      alert('New Service created successfully')
+    }
 
     return {
       services,
       loading,
       searchQuery,
+      currentPage,
+      totalPageCount,
+      paginatedListItems,
+      createNewService
     };
   },
 });
@@ -84,6 +93,7 @@ export default defineComponent({
         line-height: 3.6rem;
         margin: 0;
       }
+
       .subtitle {
         font-size: 1.6rem;
         font-weight: 400;
@@ -102,8 +112,7 @@ export default defineComponent({
       }
 
       label:before {
-        background: url("/public/icons/magnifier.svg") center / contain
-          no-repeat;
+        background: url("/icons/magnifier.svg") center / contain no-repeat;
         bottom: 0;
         content: "";
         height: 4rem;
@@ -122,17 +131,6 @@ export default defineComponent({
         width: 21rem;
       }
 
-      .service-package {
-        background: #07a88d;
-        border: none;
-        border-radius: 10rem;
-        color: #ffffff;
-        cursor: pointer;
-        font-size: 1.6rem;
-        font-weight: 600;
-        line-height: 2rem;
-        padding: 1rem 3rem;
-      }
     }
   }
 }
@@ -140,24 +138,21 @@ export default defineComponent({
 .catalog {
   display: flex;
   flex-wrap: wrap;
-  list-style: none;
-  margin: 20px 0 0 0;
+  gap: 2.5rem;
+  margin-top: 2.5rem;
 }
 
-.service {
-  border: 1px solid #999;
-  border-radius: 10px;
-  margin: 6px;
-  padding: 8px 16px;
-  width: 200px;
-
-  p:first-of-type {
-    color: #333;
-    font-weight: 700;
-  }
-
-  p {
-    color: #666;
-  }
+.service-card {
+  align-self: auto;
+  background-color: #fff;
+  border-radius: 0.2rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 24rem;
+  padding: 2rem;
+  width: 42rem;
 }
 </style>

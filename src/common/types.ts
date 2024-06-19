@@ -1,3 +1,5 @@
+import type { Ref } from "vue";
+
 export interface Service {
   id: string;
   name: string;
@@ -29,4 +31,14 @@ export interface Developer {
   name: string;
   email: string;
   avatar: string;
+}
+
+//  COMPOSABLE TYPES
+
+export interface UseGetPaginatedDataReturnType {
+  currentPage: Ref<number>;
+  totalPageCount: Ref<number>;
+  paginatedListItems: Ref<Service[]>;
+  nextPage: () => void;
+  previousPage: () => void;
 }

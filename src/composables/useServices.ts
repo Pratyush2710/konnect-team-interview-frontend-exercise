@@ -1,6 +1,6 @@
 import { ref, onBeforeMount } from "vue";
 import axios, { type AxiosResponse } from "axios";
-import type { Service } from "./types";
+import type { Service } from "../common/types";
 
 // This composable is a simplified example for the exercise **and could likely be improved**.
 // Feel free to leave as-is, modify, or remove this file (and any others) as desired.
@@ -41,5 +41,6 @@ export default function useServices(): any {
     services,
     loading,
     error,
+    getServices,
   };
 }

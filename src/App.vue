@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import HeaderComponent from "@/components/Header.vue";
+import HeaderComponent from "@/components/Header/Header.vue";
 
 export default defineComponent({
   name: "App",
@@ -34,6 +34,7 @@ body {
   line-height: 1.2;
   margin: 0 auto;
 }
+
 *,
 *::before,
 *::after {
