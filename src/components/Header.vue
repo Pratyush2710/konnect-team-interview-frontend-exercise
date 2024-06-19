@@ -48,25 +48,26 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 header {
-  display: flex;
   align-items: center;
+  color: #fffc;
+  display: flex;
+  height: 6rem;
   position: sticky;
   top: 0;
-  height: 6rem;
-  color: rgb(255 255 255 / 0.8);
+  z-index: 1;
 }
 
 .navbar {
+  align-items: center;
+  background: linear-gradient(180deg, #09224f 0%, #073382 100%);
   display: flex;
   flex-grow: 1;
-  align-items: center;
-  justify-content: space-between;
-  height: 100%;
-  padding: 0;
-  padding-right: 2rem;
   font-size: 1.5rem;
   font-weight: 600;
-  background: linear-gradient(180deg, #09224f 0%, #073382 100%);
+  height: 100%;
+  justify-content: space-between;
+  padding: 0;
+  padding-right: 2rem;
 }
 
 .navbar-list {
@@ -74,19 +75,19 @@ header {
   gap: 2rem;
 
   .navbar-list-item {
-    display: flex;
     align-items: center;
+    display: flex;
     gap: 1rem;
   }
 }
 
 .user-profile {
-  display: flex;
   align-items: center;
+  background: rgba(7, 40, 99, 1);
+  display: flex;
   gap: 1.5rem;
   height: 100%;
   padding: 0 2rem;
-  background: rgba(7, 40, 99, 1);
 
   .avatar-container {
     align-items: center;

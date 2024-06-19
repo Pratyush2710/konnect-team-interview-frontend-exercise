@@ -6,17 +6,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import HeaderComponent from '@/components/Header.vue'
+import { defineComponent } from "vue";
+import HeaderComponent from "@/components/Header.vue";
 
 export default defineComponent({
-  name: 'App',
-  components:{
-    HeaderComponent
-  }
-})
+  name: "App",
+  components: {
+    HeaderComponent,
+  },
+});
 </script>
-
 
 <style lang="scss">
 // Unscoped styles for html and body
@@ -27,6 +26,8 @@ html {
 }
 
 body {
+  background-color: #f8f8fa;
+  color: #3c4557;
   font-family: Arial, sans-serif;
   font-size: 1.6rem;
   font-weight: 400;
