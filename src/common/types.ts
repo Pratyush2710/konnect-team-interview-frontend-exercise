@@ -38,7 +38,7 @@ export interface Developer {
 export interface UseGetPaginatedDataReturnType {
   currentPage: Ref<number>;
   totalPageCount: Ref<number>;
+  totalListItems: Ref<number>;
   paginatedListItems: Ref<Service[]>;
-  nextPage: () => void;
-  previousPage: () => void;
+  handlePagination: (direction: number) => void;
 }

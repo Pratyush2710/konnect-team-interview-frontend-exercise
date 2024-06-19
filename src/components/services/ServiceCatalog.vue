@@ -24,6 +24,8 @@
         <ServiceCard :service="service" />
       </section>
     </div>
+    <Pagination v-if="totalPageCount > 1" :totalItems="totalListItems" :currentPage="currentPage"
+      :totalPages="totalPageCount" @navigate="handlePagination" />
     <div v-else data-testid="no-results">No services</div>
   </div>
 </template>
@@ -35,12 +37,14 @@ import useServices from "@/composables/useServices";
 import useGetPaginatedData from "@/composables/useGetPaginatedData";
 import ServiceCard from "@/components/services/ServiceCard.vue";
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
+import Pagination from '@/components/Pagination/Pagination.vue'
 
 export default defineComponent({
   name: "ServiceCatalog",
   components: {
     ServiceCard,
-    PrimaryButton
+    PrimaryButton,
+    Pagination
   },
   setup() {
     // Import services from the composable
@@ -49,7 +53,7 @@ export default defineComponent({
     // Set the search string to a Vue ref
     const searchQuery = useDebouncedRef("", 300);
 
-    const { currentPage, totalPageCount, paginatedListItems } =
+    const { currentPage, totalPageCount, totalListItems, paginatedListItems, handlePagination } =
       useGetPaginatedData(services);
 
     watch(searchQuery, (newQuery) => {
@@ -68,8 +72,10 @@ export default defineComponent({
       searchQuery,
       currentPage,
       totalPageCount,
+      totalListItems,
       paginatedListItems,
-      createNewService
+      createNewService,
+      handlePagination
     };
   },
 });
@@ -139,7 +145,7 @@ export default defineComponent({
   display: flex;
   flex-wrap: wrap;
   gap: 2.5rem;
-  margin-top: 2.5rem;
+  margin-block: 2.5rem;
 }
 
 .service-card {

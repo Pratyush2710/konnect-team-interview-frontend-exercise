@@ -1,7 +1,7 @@
 <template>
-    <ul class="avatar-list">
-        <li v-for="({ id, name, avatar }) in usersToBeListed" :key="id">
-            <img :src="avatar" :alt="name" class="avatar">
+    <ul class="avatar-list" v-if="usersToBeListed.length">
+        <li v-for="(user, i) in usersToBeListed" :key="user?.id || i">
+            <img v-if="user" :src="user.avatar" :alt="user.name" class="avatar">
         </li>
         <li v-if="offsetUsersCount">
             <div class="offset-tile">+ {{ offsetUsersCount }}</div>

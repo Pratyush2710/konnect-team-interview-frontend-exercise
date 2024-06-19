@@ -19,25 +19,20 @@ export default function useGetPaginatedData(
     return itemList.value.slice(startIndex, endIndex);
   });
 
-  function nextPage() {
-    // Navigate to the next page if not at the end of the page
-    if (currentPage.value < totalPageCount.value) {
-      currentPage.value++;
-    }
-  }
-
-  function previousPage() {
-    // Navigate to the previous page after 1st page
-    if (currentPage.value > 1) {
-      currentPage.value--;
+  function handlePagination(direction: number): void {
+    if (
+      (direction === -1 && currentPage.value > 1) ||
+      (direction === 1 && currentPage.value < totalPageCount.value)
+    ) {
+      currentPage.value += direction;
     }
   }
 
   return {
     currentPage,
+    totalListItems,
     totalPageCount,
     paginatedListItems,
-    nextPage,
-    previousPage,
+    handlePagination,
   };
 }
