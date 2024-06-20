@@ -33,11 +33,13 @@ export default defineComponent({
       return this.users.length;
     },
     offsetUsersCount(): number {
+      // Difference of remaining users post limit is reached
       return this.totalUsersCount > this.limit
         ? this.totalUsersCount - this.limit
         : 0;
     },
     usersToBeListed(): Developer[] {
+      // Users list as per the provided limit
       return this.users.slice(0, this.limit);
     },
   },

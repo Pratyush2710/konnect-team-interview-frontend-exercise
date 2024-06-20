@@ -98,12 +98,14 @@ export default defineComponent({
     } = useModal();
 
     const openConfirm = () => {
+      // Attach the modal to the root and toggle visibility to true
       component.value = markRaw(ModalComponent);
       showModal();
     };
 
-    // Set the search string to a Vue ref
+    // Set the search string to a Vue ref - debounced to 300ms
     const searchQuery = useDebouncedRef("", 300);
+    // Ref to hold the selected service data
     const selectedServiceData = ref<Service | undefined>();
 
     const {
@@ -137,6 +139,7 @@ export default defineComponent({
     };
 
     const onServiceCardClick = (selectedService: Service): void => {
+      // Store the service data in the ref and toggles the modal visibility to true
       selectedServiceData.value = selectedService;
       openConfirm();
     };

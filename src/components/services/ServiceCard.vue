@@ -47,6 +47,7 @@ export default defineComponent({
   },
   setup() {
     const getUniqueDeveloperList = (serviceItem: Service): Array<Developer> => {
+      // Filter duplicate developers per service version
       const developerSet = new Set();
       const unique = [] as Developer[];
       for (const item of serviceItem.versions) {

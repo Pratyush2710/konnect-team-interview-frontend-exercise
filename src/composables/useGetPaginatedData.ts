@@ -2,9 +2,16 @@ import { ref, computed, type Ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import type { Service, UseGetPaginatedDataReturnType } from "@/common/types";
 
+const DEFAULT_PAGE_LIMIT = 10;
+/**
+ * Generic hook to manage paginated data fetching and display in Vue applications.
+ *
+ * @param itemList - Reference to an array of items
+ * @param limit (optional) - The number of items to display per page. Defaults to 10.
+ */
 export default function useGetPaginatedData(
   itemList: Ref<Service[]>,
-  limit = 10
+  limit = DEFAULT_PAGE_LIMIT
 ): UseGetPaginatedDataReturnType {
   const router = useRouter();
   const { query } = useRoute();
@@ -23,6 +30,12 @@ export default function useGetPaginatedData(
     return itemList.value.slice(startIndex, endIndex);
   });
 
+  /**
+   * Handles pagination logic based on the provided direction (positive/negative).
+   * Updates the current page and router query parameter for page.
+   *
+   * @param {number} direction - Positive (1) for next page, Negative (-1) for previous page.
+   */
   async function handlePagination(direction: number): Promise<void> {
     if (
       (direction === -1 && currentPage.value > 1) ||

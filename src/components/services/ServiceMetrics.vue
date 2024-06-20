@@ -51,6 +51,7 @@ export default defineComponent({
   },
   methods: {
     formatPercentage(value: number) {
+      // Converts the decimal to percentage upto 2 decimal values
       return (value * 100).toFixed(2) + "%";
     },
   },

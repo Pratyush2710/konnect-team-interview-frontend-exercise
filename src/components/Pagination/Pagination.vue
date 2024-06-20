@@ -53,18 +53,29 @@ export default defineComponent({
   emits: ["navigate"],
   computed: {
     isFirstPage() {
+      // Returns true if the current page is the first page
       return this.currentPage <= 1;
     },
     isLastPage() {
+      // Returns true if the current page is equal to total pages
       return this.currentPage >= this.totalPages;
     },
     isDataAvailable() {
+      // Returns true if any data available for pagination
       return this.totalItems > 0;
     },
     startIndex() {
+      // Calculates the starting index for the current page based on page size.
       return (this.currentPage - 1) * this.pageSize + 1;
     },
     endIndex() {
+      /**
+       * Calculates the ending index for the current page based on page size and total items.
+       * Handling edge cases for single page and last page
+       * - if single page, return total items
+       * - if last page, return totalItems as no page paginated logic required, count is available
+       * - else offset of pageSize with currentPage number will provide the endIndex
+       */
       return this.totalPages === 1 || this.currentPage === this.totalPages
         ? this.totalItems
         : this.currentPage * this.pageSize;
