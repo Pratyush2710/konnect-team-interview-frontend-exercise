@@ -31,31 +31,47 @@
     <div v-else data-testid="no-results" class="no-results">
       {{ searchQuery ? `No services found for '${searchQuery}'` : 'No services present. ' }}
     </div>
+    <Teleport to="#modal">
+      <Transition>
+        <ModalComponent v-if="isModalVisible" @close="hideModal"></ModalComponent>
+      </Transition>
+    </Teleport>
+    <button @click="openConfirm">Open Modal</button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, onBeforeMount } from "vue";
+import { defineComponent, watch, onBeforeMount, markRaw } from "vue";
 import { useRouter, useRoute } from 'vue-router';
 import useDebouncedRef from "@/composables/useDebouncedRef";
 import useServices from "@/composables/useServices";
+import useModal from "@/composables/useModal";
 import useGetPaginatedData from "@/composables/useGetPaginatedData";
 import ServiceCard from "@/components/services/ServiceCard.vue";
 import PrimaryButton from '@/components/common/PrimaryButton.vue'
 import Pagination from '@/components/Pagination/Pagination.vue'
+import ModalComponent from '@/components/common/ModalComponent.vue'
 
 export default defineComponent({
   name: "ServiceCatalog",
   components: {
     ServiceCard,
     PrimaryButton,
-    Pagination
+    Pagination,
+    ModalComponent
   },
   setup() {
     // Import services from the composable
     const { services, loading, getServices } = useServices();
     const router = useRouter();
     const { query } = useRoute();
+    const { show: isModalVisible, component, showModal, hideModal } = useModal();
+
+    const openConfirm = () => {
+      component.value = markRaw(ModalComponent);
+      showModal()
+    }
+
 
     // Set the search string to a Vue ref
     const searchQuery = useDebouncedRef("", 300);
@@ -86,13 +102,15 @@ export default defineComponent({
     }
     onBeforeMount(() => {
       // Initialize searchQuery from parameters if present
-      const existingParams = query['search']
+      const existingParams = query['search'] as string
       if (existingParams) {
         searchQuery.value = existingParams
       }
     })
 
     return {
+      isModalVisible,
+      component,
       services,
       loading,
       searchQuery,
@@ -100,6 +118,8 @@ export default defineComponent({
       totalPageCount,
       totalListItems,
       paginatedListItems,
+      hideModal,
+      openConfirm,
       createNewService,
       handlePagination
     };
@@ -194,5 +214,16 @@ export default defineComponent({
   min-height: 24rem;
   padding: 2rem;
   width: 42rem;
+}
+
+/* Transition for modal */
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>
