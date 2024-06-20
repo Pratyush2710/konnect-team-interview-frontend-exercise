@@ -14,7 +14,7 @@ export default function useGetPaginatedData(
   limit = DEFAULT_PAGE_LIMIT,
 ): UseGetPaginatedDataReturnType {
   const router = useRouter()
-  const { query } = useRoute()
+  const route = useRoute()
 
   // Ref to track the current page number
   const currentPage = ref(1)
@@ -44,14 +44,14 @@ export default function useGetPaginatedData(
       currentPage.value += direction
       await router.replace({
         query: {
-          ...query,
+          ...route.query,
           page: currentPage.value,
         },
       })
     }
   }
 
-  const pageQueryParam = Math.floor(Number(query['page']))
+  const pageQueryParam = Math.floor(Number(route.query['page']))
   // Initialize currentPage from parameters if present
   if (pageQueryParam && pageQueryParam > 0) {
     currentPage.value = pageQueryParam
