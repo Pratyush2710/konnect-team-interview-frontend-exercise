@@ -1,3 +1,38 @@
+# Demo
+
+Assignment live link: https://kong-assignment.netlify.app/
+
+![ezgif-6-92a07ed987](https://github.com/Pratyush2710/konnect-team-interview-frontend-exercise/assets/30828006/2b6ebf28-05a6-4162-94b9-9ee5409571b4)
+
+Full demo: https://drive.google.com/file/d/1WxjLKLPNAPSmRmTJjRFHxIhdFel3vQps/view?usp=sharing
+
+### Service List page
+![image](https://github.com/Pratyush2710/konnect-team-interview-frontend-exercise/assets/30828006/694608dc-d2ba-48cf-9b52-827460821798)
+
+### Service list - with a search query
+![image](https://github.com/Pratyush2710/konnect-team-interview-frontend-exercise/assets/30828006/a30ae443-6460-47f6-b39b-ff01339ef345)
+
+### Client-side pagination with search and page in query param 
+![image](https://github.com/Pratyush2710/konnect-team-interview-frontend-exercise/assets/30828006/8797e491-ba2e-4d28-a03a-e0decb17fb71)
+
+### Service with service details
+![image](https://github.com/Pratyush2710/konnect-team-interview-frontend-exercise/assets/30828006/6a67b7a3-2fb9-450f-a98b-fa5db44e6756)
+
+### No result page page
+![image](https://github.com/Pratyush2710/konnect-team-interview-frontend-exercise/assets/30828006/c2845148-f99c-45d6-ba7a-4e0f2ea4da8b)
+
+### 404 Page
+![image](https://github.com/Pratyush2710/konnect-team-interview-frontend-exercise/assets/30828006/46ee0039-8c69-41b2-a0c9-83ed124ed18c)
+
+
+![image](https://github.com/Pratyush2710/konnect-team-interview-frontend-exercise/assets/30828006/66a997a5-5118-4832-b52b-99c008e3143d)
+![image](https://github.com/Pratyush2710/konnect-team-interview-frontend-exercise/assets/30828006/fbb9a881-aba9-4206-932c-0eb871e48593)
+![image](https://github.com/Pratyush2710/konnect-team-interview-frontend-exercise/assets/30828006/ed7889b1-2d5d-4518-b5da-99e1b63899ba)
+<img width="408" alt="image" src="https://github.com/Pratyush2710/konnect-team-interview-frontend-exercise/assets/30828006/565de4e7-8636-41b2-a377-bc37eef4d79d">
+
+
+
+
 # Welcome
 
 Please take the time to read through all of the sections below; we want you to do great! :rocket:
