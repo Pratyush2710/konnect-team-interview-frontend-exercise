@@ -19,14 +19,18 @@
       </div>
     </div>
 
-    <div v-if="paginatedListItems.length" class="catalog">
-      <section v-for="service in paginatedListItems" :key="service.id" class="service-card">
-        <ServiceCard :service="service" />
-      </section>
+    <template v-if="paginatedListItems.length">
+      <div class="catalog">
+        <section v-for="service in paginatedListItems" :key="service.id" class="service-card">
+          <ServiceCard :service="service" />
+        </section>
+      </div>
+      <Pagination v-if="totalPageCount > 1" :totalItems="totalListItems" :currentPage="currentPage"
+        :totalPages="totalPageCount" @navigate="handlePagination" />
+    </template>
+    <div v-else data-testid="no-results" class="no-results">
+      {{ searchQuery ? `No services found for '${searchQuery}'` : 'No services present. ' }}
     </div>
-    <Pagination v-if="totalPageCount > 1" :totalItems="totalListItems" :currentPage="currentPage"
-      :totalPages="totalPageCount" @navigate="handlePagination" />
-    <div v-else data-testid="no-results">No services</div>
   </div>
 </template>
 
@@ -59,7 +63,8 @@ export default defineComponent({
     watch(searchQuery, (newQuery) => {
       console.log({ newQuery });
       // Fetch services based on queryParam
-      getServices();
+      getServices(newQuery);
+      currentPage.value = 1
     });
 
     const createNewService = () => {
@@ -139,6 +144,14 @@ export default defineComponent({
 
     }
   }
+
+  .no-results {
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 2.4rem;
+    margin-top: 30rem;
+    text-align: center;
+  }
 }
 
 .catalog {
@@ -152,7 +165,7 @@ export default defineComponent({
   align-self: auto;
   background-color: #fff;
   border-radius: 0.2rem;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 2px rgba(40, 41, 61, 0.04), 0px 4px 8px rgba(96, 97, 112, 0.16);
   cursor: pointer;
   display: flex;
   flex-direction: column;

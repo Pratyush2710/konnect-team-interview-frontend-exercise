@@ -11,14 +11,15 @@ export default function useServices(): any {
   const loading = ref<boolean>(false);
   const error = ref<any>(false);
 
-  const getServices = async (): Promise<void> => {
+  const getServices = async (query?: string): Promise<void> => {
     try {
       // Initialize loading state
       loading.value = true;
 
       // Fetch data from the API
       const response: AxiosResponse<Service[]> = await axios.get(
-        "/api/services"
+        "/api/services",
+        { params: { q: query } }
       );
 
       // Store data in Vue ref
