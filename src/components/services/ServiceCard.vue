@@ -1,6 +1,9 @@
 <template>
   <div class="card-header">
-    <StatusBar :configured="service.configured" :published="service.published" />
+    <StatusBar
+      :configured="service.configured"
+      :published="service.published"
+    />
 
     <div v-if="service.versions.length" class="versions">
       {{ service.versions.length }}
@@ -14,7 +17,10 @@
     {{ service.description }}
   </p>
   <div class="card-footer">
-    <ServiceMetrics :configured="service.configured" :metrics="service.metrics" />
+    <ServiceMetrics
+      :configured="service.configured"
+      :metrics="service.metrics"
+    />
     <AvatarTiles :users="getUniqueDeveloperList(service)" />
   </div>
 </template>
@@ -50,8 +56,8 @@ export default defineComponent({
         }
       }
 
-      return unique
-    }
+      return unique;
+    };
 
     return {
       getUniqueDeveloperList,
@@ -95,7 +101,7 @@ export default defineComponent({
   justify-content: space-between;
 
   ul {
-    margin: 0
+    margin: 0;
   }
 }
 </style>
