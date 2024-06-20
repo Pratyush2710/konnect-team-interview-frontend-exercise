@@ -18,7 +18,9 @@ export default function useServices(): any {
 
       // Fetch data from the API
       const response: AxiosResponse<Service[]> = await axios.get(
-        '/api/services',
+        process.env.NODE_ENV !== 'production'
+          ? '/api/services'
+          : 'https://konnect-team-interview-frontend-exercise.onrender.com/api/services',
         { params: { q: query } },
       )
 
