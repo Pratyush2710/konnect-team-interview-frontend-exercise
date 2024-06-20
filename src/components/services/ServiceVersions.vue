@@ -140,8 +140,9 @@ export default defineComponent({
       text-align: right;
 
       .user-image {
-        height: 2rem;
-        width: 2rem;
+        height: 3rem;
+        width: 3rem;
+        border-radius: 50%;
       }
     }
 
