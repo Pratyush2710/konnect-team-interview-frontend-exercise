@@ -4,19 +4,25 @@
       <router-link to="/">
         <img
           alt="Kong logo"
-          src="/logo/kong-logo.svg"
           data-testid="kong-logo"
-        />
+          src="/logo/kong-logo.svg"
+        >
       </router-link>
       <div class="navbar-list">
-        <template v-for="option in menuOptions" :key="option.title">
-          <span class="navbar-list-item" @click="option.action">
+        <template
+          v-for="option in menuOptions"
+          :key="option.title"
+        >
+          <span
+            class="navbar-list-item"
+            @click="option.action"
+          >
             <img
-              height="20px"
-              width="20px"
-              :src="option.src"
               :alt="option.title"
-            />
+              height="20px"
+              :src="option.src"
+              width="20px"
+            >
             {{ option.title }}
           </span>
         </template>
@@ -25,27 +31,27 @@
 
     <div class="user-profile">
       <img
-        height="30px"
-        width="30px"
-        src="/icons/avatar.svg"
         alt="avatar icon"
-      />
+        height="30px"
+        src="/icons/avatar.svg"
+        width="30px"
+      >
       <span class="username">Katherine Ellis</span>
     </div>
   </header>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { HeaderMenuItem } from "./utils";
+import { defineComponent } from 'vue'
+import { HeaderMenuItem } from './utils'
 export default defineComponent({
-  name: "AppHeader",
+  name: 'AppHeader',
   data() {
     return {
       menuOptions: HeaderMenuItem,
-    };
+    }
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>

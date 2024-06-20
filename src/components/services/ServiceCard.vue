@@ -5,7 +5,10 @@
       :published="service.published"
     />
 
-    <div v-if="service.versions.length" class="versions">
+    <div
+      v-if="service.versions.length"
+      class="versions"
+    >
       {{ service.versions.length }}
       {{ service.versions.length > 1 ? "versions" : "version" }}
     </div>
@@ -26,14 +29,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType } from "vue";
-import StatusBar from "@/components/common/StatusBar.vue";
-import ServiceMetrics from "@/components/services/ServiceMetrics.vue";
-import AvatarTiles from "@/components/common/AvatarTiles.vue";
-import { type Service, type Developer } from "@/common/types.ts";
+import { defineComponent, type PropType } from 'vue'
+import StatusBar from '@/components/common/StatusBar.vue'
+import ServiceMetrics from '@/components/services/ServiceMetrics.vue'
+import AvatarTiles from '@/components/common/AvatarTiles.vue'
+import { type Service, type Developer } from '@/common/types.ts'
 
 export default defineComponent({
-  name: "ServiceCard",
+  name: 'ServiceCard',
   components: {
     StatusBar,
     ServiceMetrics,
@@ -48,23 +51,23 @@ export default defineComponent({
   setup() {
     const getUniqueDeveloperList = (serviceItem: Service): Array<Developer> => {
       // Filter duplicate developers per service version
-      const developerSet = new Set();
-      const unique = [] as Developer[];
+      const developerSet = new Set()
+      const unique = [] as Developer[]
       for (const item of serviceItem.versions) {
         if (!developerSet.has(item?.developer?.id)) {
-          developerSet.add(item?.developer?.id);
-          unique.push(item.developer as Developer);
+          developerSet.add(item?.developer?.id)
+          unique.push(item.developer as Developer)
         }
       }
 
-      return unique;
-    };
+      return unique
+    }
 
     return {
       getUniqueDeveloperList,
-    };
+    }
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>

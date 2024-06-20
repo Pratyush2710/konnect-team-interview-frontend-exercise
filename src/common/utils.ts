@@ -1,4 +1,4 @@
-import { formatTimeAgo } from "@vueuse/core";
+import { formatTimeAgo } from '@vueuse/core'
 
 /**
  * Formats the timstamp to human-readable approximated string (e.g 2 months ago)
@@ -7,6 +7,6 @@ import { formatTimeAgo } from "@vueuse/core";
  * @returns - A human-readable time difference string (e.g., "2 minutes ago").
  */
 export const getFormattedTime = (updated_at: string): string => {
-  console.log(updated_at);
-  return formatTimeAgo(new Date(updated_at));
-};
+  console.log(updated_at)
+  return formatTimeAgo(new Date(updated_at))
+}

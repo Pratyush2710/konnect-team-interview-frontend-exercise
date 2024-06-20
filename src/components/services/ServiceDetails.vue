@@ -1,7 +1,11 @@
 <template>
   <div class="service-detail-modal">
-    <p class="modal-title">{{ service.name }}</p>
-    <p class="modal-description">{{ service.description }}</p>
+    <p class="modal-title">
+      {{ service.name }}
+    </p>
+    <p class="modal-description">
+      {{ service.description }}
+    </p>
     <div class="metadata-container">
       <section class="left-content">
         <h3>Status</h3>
@@ -19,21 +23,26 @@
       </section>
     </div>
     <section v-if="service.versions?.length">
-      <p class="versions">Versions ({{ service.versions.length }})</p>
-      <ServiceVersions :type="service.type" :versions="service.versions" />
+      <p class="versions">
+        Versions ({{ service.versions.length }})
+      </p>
+      <ServiceVersions
+        :type="service.type"
+        :versions="service.versions"
+      />
     </section>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType } from "vue";
-import { type Service } from "@/common/types.ts";
-import StatusBar from "@/components/common/StatusBar.vue";
-import ServiceMetrics from "@/components/services/ServiceMetrics.vue";
-import ServiceVersions from "@/components/services/ServiceVersions.vue";
+import { defineComponent, type PropType } from 'vue'
+import { type Service } from '@/common/types.ts'
+import StatusBar from '@/components/common/StatusBar.vue'
+import ServiceMetrics from '@/components/services/ServiceMetrics.vue'
+import ServiceVersions from '@/components/services/ServiceVersions.vue'
 
 export default defineComponent({
-  name: "ServiceDetails",
+  name: 'ServiceDetails',
   components: {
     StatusBar,
     ServiceMetrics,
@@ -45,7 +54,7 @@ export default defineComponent({
       required: true,
     },
   },
-});
+})
 </script>
 
 <style scoped lang="scss">

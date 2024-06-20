@@ -1,20 +1,24 @@
 <template>
-  <button class="btn-primary" @click="$emit('click:event')">
+  <button
+    class="btn-primary"
+    @click="$emit('click:event')"
+  >
     {{ label }}
   </button>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 export default defineComponent({
-  name: "PrimaryButton",
+  name: 'PrimaryButton',
   props: {
     label: {
       type: String,
       required: true,
     },
   },
-});
+  emits: ['click:event'],
+})
 </script>
 
 <style lang="scss" scoped>

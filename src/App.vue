@@ -6,15 +6,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import HeaderComponent from "@/components/Header/Header.vue";
+import { defineComponent } from 'vue'
+import HeaderComponent from '@/components/Header/Header.vue'
 
 export default defineComponent({
-  name: "App",
+  name: 'App',
   components: {
     HeaderComponent,
   },
-});
+})
 </script>
 
 <style lang="scss">

@@ -5,13 +5,22 @@
     @click="checkModalOverlayClicked"
     @touchstart="checkModalOverlayClicked"
   >
-    <div role="dialog" aria-modal="true" class="modal-wrapper">
+    <div
+      aria-modal="true"
+      class="modal-wrapper"
+      role="dialog"
+    >
       <slot name="close">
         <div class="close-modal">
-          <button @click="$emit('close')">X</button>
+          <button @click="$emit('close')">
+            X
+          </button>
         </div>
       </slot>
-      <div class="modal-body" data-testid="modal-body">
+      <div
+        class="modal-body"
+        data-testid="modal-body"
+      >
         <slot>
           <h3>Modal content</h3>
         </slot>
@@ -21,19 +30,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 export default defineComponent({
-  name: "ModalComponent",
-  emits: ["close"],
+  name: 'ModalComponent',
+  emits: ['close'],
   methods: {
     checkModalOverlayClicked(e: MouseEvent | TouchEvent): void {
       // Check if the modal is clicked, not an element inside the modal:
       if (e.target === e.currentTarget) {
-        this.$emit("close");
+        this.$emit('close')
       }
     },
   },
-});
+})
 </script>
 
 <style scoped lang="scss">

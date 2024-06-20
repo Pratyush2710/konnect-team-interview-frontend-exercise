@@ -1,23 +1,33 @@
 <template>
   <ul
-    data-testid="avatar-list"
-    class="avatar-list"
     v-if="usersToBeListed.length"
+    class="avatar-list"
+    data-testid="avatar-list"
   >
-    <li v-for="(user, i) in usersToBeListed" :key="user?.id || i">
-      <img v-if="user" :src="user.avatar" :alt="user.name" class="avatar" />
+    <li
+      v-for="(user, i) in usersToBeListed"
+      :key="user?.id || i"
+    >
+      <img
+        v-if="user"
+        :alt="user.name"
+        class="avatar"
+        :src="user.avatar"
+      >
     </li>
     <li v-if="offsetUsersCount">
-      <div class="offset-tile">+ {{ offsetUsersCount }}</div>
+      <div class="offset-tile">
+        + {{ offsetUsersCount }}
+      </div>
     </li>
   </ul>
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType } from "vue";
-import { type Developer } from "@/common/types.ts";
+import { defineComponent, type PropType } from 'vue'
+import { type Developer } from '@/common/types.ts'
 export default defineComponent({
-  name: "AvatarTiles",
+  name: 'AvatarTiles',
   props: {
     users: {
       type: Array as PropType<Developer[]>,
@@ -30,20 +40,20 @@ export default defineComponent({
   },
   computed: {
     totalUsersCount(): number {
-      return this.users.length;
+      return this.users.length
     },
     offsetUsersCount(): number {
       // Difference of remaining users post limit is reached
       return this.totalUsersCount > this.limit
         ? this.totalUsersCount - this.limit
-        : 0;
+        : 0
     },
     usersToBeListed(): Developer[] {
       // Users list as per the provided limit
-      return this.users.slice(0, this.limit);
+      return this.users.slice(0, this.limit)
     },
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>

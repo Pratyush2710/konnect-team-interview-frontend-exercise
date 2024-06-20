@@ -2,7 +2,9 @@
   <div class="service-catalog">
     <div class="header">
       <div class="title-container">
-        <p class="title">Service Hub</p>
+        <p class="title">
+          Service Hub
+        </p>
         <p class="subtitle">
           Organize services, manage and track versioning and API service
           documentation. <a href="/docs">Learn More</a>
@@ -16,12 +18,12 @@
             data-testid="search-input"
             placeholder="Search"
             type="search"
-          />
+          >
         </label>
 
         <PrimaryButton
-          @click:event="createNewService()"
           :label="`+ Service Package`"
+          @click:event="createNewService()"
         />
       </div>
     </div>
@@ -39,13 +41,17 @@
       </div>
       <Pagination
         v-if="totalPageCount > 1"
-        :totalItems="totalListItems"
-        :currentPage="currentPage"
-        :totalPages="totalPageCount"
+        :current-page="currentPage"
+        :total-items="totalListItems"
+        :total-pages="totalPageCount"
         @navigate="handlePagination"
       />
     </template>
-    <div v-else data-testid="no-results" class="no-results">
+    <div
+      v-else
+      class="no-results"
+      data-testid="no-results"
+    >
       {{
         searchQuery
           ? `No services found for '${searchQuery}'`
@@ -53,7 +59,10 @@
       }}
     </div>
     <Teleport to="#modal">
-      <ModalComponent v-if="isModalVisible" @close="hideModal">
+      <ModalComponent
+        v-if="isModalVisible"
+        @close="hideModal"
+      >
         <template v-if="selectedServiceData">
           <ServiceDetails :service="selectedServiceData" />
         </template>
@@ -63,21 +72,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, onBeforeMount, markRaw, ref } from "vue";
-import { useRouter, useRoute } from "vue-router";
-import { type Service } from "@/common/types.ts";
-import useDebouncedRef from "@/composables/useDebouncedRef";
-import useServices from "@/composables/useServices";
-import useModal from "@/composables/useModal";
-import useGetPaginatedData from "@/composables/useGetPaginatedData";
-import ServiceCard from "@/components/services/ServiceCard.vue";
-import PrimaryButton from "@/components/common/PrimaryButton.vue";
-import Pagination from "@/components/Pagination/Pagination.vue";
-import ModalComponent from "@/components/common/ModalComponent.vue";
-import ServiceDetails from "@/components/services/ServiceDetails.vue";
+import { defineComponent, watch, onBeforeMount, markRaw, ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { type Service } from '@/common/types.ts'
+import useDebouncedRef from '@/composables/useDebouncedRef'
+import useServices from '@/composables/useServices'
+import useModal from '@/composables/useModal'
+import useGetPaginatedData from '@/composables/useGetPaginatedData'
+import ServiceCard from '@/components/services/ServiceCard.vue'
+import PrimaryButton from '@/components/common/PrimaryButton.vue'
+import Pagination from '@/components/Pagination/PaginationComponent.vue'
+import ModalComponent from '@/components/common/ModalComponent.vue'
+import ServiceDetails from '@/components/services/ServiceDetails.vue'
 
 export default defineComponent({
-  name: "ServiceCatalog",
+  name: 'ServiceCatalog',
   components: {
     ServiceCard,
     PrimaryButton,
@@ -87,26 +96,26 @@ export default defineComponent({
   },
   setup() {
     // Import services from the composable
-    const { services, loading, getServices } = useServices();
-    const router = useRouter();
-    const { query } = useRoute();
+    const { services, loading, getServices } = useServices()
+    const router = useRouter()
+    const { query } = useRoute()
     const {
       show: isModalVisible,
       component,
       showModal,
       hideModal,
-    } = useModal();
+    } = useModal()
 
     const openConfirm = () => {
       // Attach the modal to the root and toggle visibility to true
-      component.value = markRaw(ModalComponent);
-      showModal();
-    };
+      component.value = markRaw(ModalComponent)
+      showModal()
+    }
 
     // Set the search string to a Vue ref - debounced to 300ms
-    const searchQuery = useDebouncedRef("", 300);
+    const searchQuery = useDebouncedRef('', 300)
     // Ref to hold the selected service data
-    const selectedServiceData = ref<Service | undefined>();
+    const selectedServiceData = ref<Service | undefined>()
 
     const {
       currentPage,
@@ -114,11 +123,11 @@ export default defineComponent({
       totalListItems,
       paginatedListItems,
       handlePagination,
-    } = useGetPaginatedData(services);
+    } = useGetPaginatedData(services)
 
     watch(searchQuery, (newQuery) => {
       // Fetch services based on queryParam
-      getServices(newQuery);
+      getServices(newQuery)
       if (newQuery) {
         router.replace({
           query: {
@@ -126,31 +135,31 @@ export default defineComponent({
             search: newQuery,
             page: 1,
           },
-        });
+        })
       } else {
         // Resetting query params on input clear
-        router.push({ query: {} });
+        router.push({ query: {} })
       }
-      currentPage.value = 1;
-    });
+      currentPage.value = 1
+    })
 
     const createNewService = () => {
-      alert("New Service created successfully");
-    };
+      alert('New Service created successfully')
+    }
 
     const onServiceCardClick = (selectedService: Service): void => {
       // Store the service data in the ref and toggles the modal visibility to true
-      selectedServiceData.value = selectedService;
-      openConfirm();
-    };
+      selectedServiceData.value = selectedService
+      openConfirm()
+    }
 
     onBeforeMount(() => {
       // Initialize searchQuery from parameters if present
-      const existingParams = query["search"] as string;
+      const existingParams = query['search'] as string
       if (existingParams) {
-        searchQuery.value = existingParams;
+        searchQuery.value = existingParams
       }
-    });
+    })
 
     return {
       isModalVisible,
@@ -168,9 +177,9 @@ export default defineComponent({
       createNewService,
       handlePagination,
       onServiceCardClick,
-    };
+    }
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>

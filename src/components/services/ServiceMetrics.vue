@@ -34,10 +34,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType } from "vue";
-import { type Metrics } from "@/common/types.ts";
+import { defineComponent, type PropType } from 'vue'
+import { type Metrics } from '@/common/types.ts'
 export default defineComponent({
-  name: "ServiceMetrics",
+  name: 'ServiceMetrics',
   props: {
     metrics: {
       type: Object as PropType<Metrics>,
@@ -52,10 +52,10 @@ export default defineComponent({
   methods: {
     formatPercentage(value: number) {
       // Converts the decimal to percentage upto 2 decimal values
-      return (value * 100).toFixed(2) + "%";
+      return (value * 100).toFixed(2) + '%'
     },
   },
-});
+})
 </script>
 
 <style scoped lang="scss">

@@ -1,8 +1,8 @@
-import { ref, computed, type Ref } from "vue";
-import { useRouter, useRoute } from "vue-router";
-import type { Service, UseGetPaginatedDataReturnType } from "@/common/types";
+import { ref, computed, type Ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import type { Service, UseGetPaginatedDataReturnType } from '@/common/types'
 
-const DEFAULT_PAGE_LIMIT = 10;
+const DEFAULT_PAGE_LIMIT = 10
 /**
  * Generic hook to manage paginated data fetching and display in Vue applications.
  *
@@ -11,24 +11,24 @@ const DEFAULT_PAGE_LIMIT = 10;
  */
 export default function useGetPaginatedData(
   itemList: Ref<Service[]>,
-  limit = DEFAULT_PAGE_LIMIT
+  limit = DEFAULT_PAGE_LIMIT,
 ): UseGetPaginatedDataReturnType {
-  const router = useRouter();
-  const { query } = useRoute();
+  const router = useRouter()
+  const { query } = useRoute()
 
   // Ref to track the current page number
-  const currentPage = ref(1);
-  const totalListItems = computed(() => itemList.value.length);
+  const currentPage = ref(1)
+  const totalListItems = computed(() => itemList.value.length)
   const totalPageCount = computed(() =>
-    Math.ceil(totalListItems.value / limit)
-  );
+    Math.ceil(totalListItems.value / limit),
+  )
 
   const paginatedListItems = computed(() => {
-    const startIndex = (currentPage.value - 1) * limit;
-    const endIndex = startIndex + limit;
+    const startIndex = (currentPage.value - 1) * limit
+    const endIndex = startIndex + limit
     // Slice the itemList to get the current page's data - not mutating original list
-    return itemList.value.slice(startIndex, endIndex);
-  });
+    return itemList.value.slice(startIndex, endIndex)
+  })
 
   /**
    * Handles pagination logic based on the provided direction (positive/negative).
@@ -41,20 +41,20 @@ export default function useGetPaginatedData(
       (direction === -1 && currentPage.value > 1) ||
       (direction === 1 && currentPage.value < totalPageCount.value)
     ) {
-      currentPage.value += direction;
+      currentPage.value += direction
       await router.replace({
         query: {
           ...query,
           page: currentPage.value,
         },
-      });
+      })
     }
   }
 
-  const pageQueryParam = Math.floor(Number(query["page"]));
+  const pageQueryParam = Math.floor(Number(query['page']))
   // Initialize currentPage from parameters if present
   if (pageQueryParam && pageQueryParam > 0) {
-    currentPage.value = pageQueryParam;
+    currentPage.value = pageQueryParam
   }
 
   return {
@@ -63,5 +63,5 @@ export default function useGetPaginatedData(
     totalPageCount,
     paginatedListItems,
     handlePagination,
-  };
+  }
 }

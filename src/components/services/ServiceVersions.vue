@@ -6,26 +6,40 @@
       class="version-list"
     >
       <div class="left">
-        <div class="name">v{{ name }}</div>
-        <div class="description">{{ description }}</div>
-        <span class="type-tag" :class="type === 'REST' ? 'rest-tag' : ''">{{
+        <div class="name">
+          v{{ name }}
+        </div>
+        <div class="description">
+          {{ description }}
+        </div>
+        <span
+          class="type-tag"
+          :class="type === 'REST' ? 'rest-tag' : ''"
+        >{{
           type
         }}</span>
       </div>
 
       <div class="right">
-        <div v-if="developer" class="user-details">
+        <div
+          v-if="developer"
+          class="user-details"
+        >
           <div>
             <img
               v-if="developer"
-              :src="developer.avatar"
               :alt="developer.name"
               class="user-image"
-            />
+              :src="developer.avatar"
+            >
           </div>
           <div>
-            <p class="name">{{ developer.name }}</p>
-            <p class="timeLapsed">{{ getFormattedTime(updated_at) }}</p>
+            <p class="name">
+              {{ developer.name }}
+            </p>
+            <p class="timeLapsed">
+              {{ getFormattedTime(updated_at) }}
+            </p>
           </div>
         </div>
       </div>
@@ -34,27 +48,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType } from "vue";
-import { type Version, type Service } from "@/common/types.ts";
-import AvatarTiles from "@/components/common/AvatarTiles.vue";
-import { getFormattedTime } from "@/common/utils.ts";
+import { defineComponent, type PropType } from 'vue'
+import { type Version, type Service } from '@/common/types.ts'
+import { getFormattedTime } from '@/common/utils.ts'
 export default defineComponent({
-  name: "ServiceVersions",
-  components: {
-    AvatarTiles,
-  },
+  name: 'ServiceVersions',
   props: {
     versions: {
       type: Object as PropType<Version[]>,
       required: true,
     },
     type: {
-      type: String as PropType<Service["type"]>,
+      type: String as PropType<Service['type']>,
       required: true,
     },
   },
   methods: { getFormattedTime },
-});
+})
 </script>
 
 <style lang="scss" scoped>

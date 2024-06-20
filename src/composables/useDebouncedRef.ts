@@ -1,4 +1,4 @@
-import { ref, customRef, type Ref, type UnwrapRef } from "vue";
+import { ref, customRef, type Ref, type UnwrapRef } from 'vue'
 
 /**
  * Helper function to debounce  given function by delay
@@ -9,16 +9,16 @@ import { ref, customRef, type Ref, type UnwrapRef } from "vue";
  */
 const debounce = (
   fn: (...args: any[]) => void,
-  delay = 0
+  delay = 0,
 ): ((...args: any[]) => void) => {
-  let timeout: ReturnType<typeof setTimeout>;
+  let timeout: ReturnType<typeof setTimeout>
   return (...args: any[]) => {
-    clearTimeout(timeout);
+    clearTimeout(timeout)
     timeout = setTimeout(() => {
-      fn(...args);
-    }, delay);
-  };
-};
+      fn(...args)
+    }, delay)
+  }
+}
 
 /**
  * Generic debounce method to debounce given fn after a delay
@@ -28,18 +28,18 @@ const debounce = (
  * @param {number} delay - The delay in milliseconds before updating the ref's value.
  */
 const useDebouncedRef = <T>(initialValue: T, delay: number): Ref<T> => {
-  const state = ref<UnwrapRef<T>>(initialValue as UnwrapRef<T>);
+  const state = ref<UnwrapRef<T>>(initialValue as UnwrapRef<T>)
   const debouncedRef = customRef<T>((track, trigger) => ({
     get() {
-      track();
-      return state.value as T;
+      track()
+      return state.value as T
     },
     set: debounce((value: T) => {
-      state.value = value as any;
-      trigger();
+      state.value = value as any
+      trigger()
     }, delay),
-  }));
-  return debouncedRef;
-};
+  }))
+  return debouncedRef
+}
 
-export default useDebouncedRef;
+export default useDebouncedRef

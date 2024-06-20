@@ -1,24 +1,32 @@
 ``
 <template>
-  <div class="container" role="navigation">
+  <div
+    class="container"
+    role="navigation"
+  >
     <button
+      data-testid="prev-navigation-btn"
       :disabled="isFirstPage || !isDataAvailable"
       @click="$emit('navigate', -1)"
-      data-testid="prev-navigation-btn"
     >
       &#8592;
     </button>
 
-    <span v-if="totalItems" class="summary-text"
-      ><b class="active-summary"> {{ startIndex }} to {{ endIndex }}</b> of
+    <span
+      v-if="totalItems"
+      class="summary-text"
+    ><b class="active-summary"> {{ startIndex }} to {{ endIndex }}</b> of
       {{ totalItems }} services
     </span>
-    <span v-else data-testid="empty-list">No services </span>
+    <span
+      v-else
+      data-testid="empty-list"
+    >No services </span>
 
     <button
+      data-testid="next-navigation-btn"
       :disabled="isLastPage || !isDataAvailable"
       @click="$emit('navigate', 1)"
-      data-testid="next-navigation-btn"
     >
       &#8594;
     </button>
@@ -26,10 +34,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "Pagination",
+  name: 'PaginationComponent',
   props: {
     totalPages: {
       type: Number,
@@ -50,23 +58,23 @@ export default defineComponent({
       default: 10,
     },
   },
-  emits: ["navigate"],
+  emits: ['navigate'],
   computed: {
     isFirstPage() {
       // Returns true if the current page is the first page
-      return this.currentPage <= 1;
+      return this.currentPage <= 1
     },
     isLastPage() {
       // Returns true if the current page is equal to total pages
-      return this.currentPage >= this.totalPages;
+      return this.currentPage >= this.totalPages
     },
     isDataAvailable() {
       // Returns true if any data available for pagination
-      return this.totalItems > 0;
+      return this.totalItems > 0
     },
     startIndex() {
       // Calculates the starting index for the current page based on page size.
-      return (this.currentPage - 1) * this.pageSize + 1;
+      return (this.currentPage - 1) * this.pageSize + 1
     },
     endIndex() {
       /**
@@ -78,10 +86,10 @@ export default defineComponent({
        */
       return this.totalPages === 1 || this.currentPage === this.totalPages
         ? this.totalItems
-        : this.currentPage * this.pageSize;
+        : this.currentPage * this.pageSize
     },
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>

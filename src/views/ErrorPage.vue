@@ -3,20 +3,23 @@
     <h1>404</h1>
     <p>Oops, we could not find this page.</p>
     <div>
-      <PrimaryButton @click:event="$router.back()" :label="`Go Back`" />
+      <PrimaryButton
+        :label="`Go Back`"
+        @click:event="$router.back()"
+      />
     </div>
   </section>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import PrimaryButton from "@/components/common/PrimaryButton.vue";
+import { defineComponent } from 'vue'
+import PrimaryButton from '@/components/common/PrimaryButton.vue'
 export default defineComponent({
-  name: "ErrorPage",
+  name: 'ErrorPage',
   components: {
     PrimaryButton,
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>

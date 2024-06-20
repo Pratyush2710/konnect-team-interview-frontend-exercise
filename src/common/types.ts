@@ -1,10 +1,10 @@
-import type { Ref } from "vue";
+import type { Ref } from 'vue'
 
 export interface Service {
   id: string;
   name: string;
   description: string;
-  type: "REST" | "HTTP";
+  type: 'REST' | 'HTTP';
   published: boolean;
   configured: boolean;
   versions: Version[];
