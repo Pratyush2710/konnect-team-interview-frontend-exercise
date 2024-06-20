@@ -80,14 +80,19 @@ header {
   height: 100%;
   justify-content: space-between;
   padding: 0;
-  padding-right: 2rem;
+  padding-right: 1.5rem;
+  @media only screen and (max-width: 600px) {
+    padding-right: 0;
+  }
 }
 
 .navbar-list {
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
   height: 100%;
-
+  @media only screen and (max-width: 600px) {
+    gap: 1rem;
+  }
   .navbar-list-item {
     align-items: center;
     border-radius: 0.5rem;
@@ -100,6 +105,13 @@ header {
       cursor: pointer;
       opacity: 1;
     }
+
+    @media only screen and (max-width: 600px) {
+      img {
+        display: none;
+      }
+      padding-inline: 0.5rem;
+    }
   }
 }
 
@@ -110,6 +122,9 @@ header {
   gap: 1.5rem;
   height: 100%;
   padding: 0 2rem;
+  @media only screen and (max-width: 600px) {
+    padding: 0 1rem;
+  }
 
   .avatar-container {
     align-items: center;
@@ -124,6 +139,11 @@ header {
 
   .username {
     font-size: 1.5rem;
+  }
+  @media only screen and (max-width: 600px) {
+    .username {
+      display: none;
+    }
   }
 }
 </style>

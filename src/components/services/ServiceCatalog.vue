@@ -176,13 +176,17 @@ export default defineComponent({
 <style lang="scss" scoped>
 .service-catalog {
   margin: 5rem auto;
-  padding: 0 4rem;
+  padding: 0 2.5rem;
 
   .header {
     align-items: start;
     display: flex;
     gap: 2rem;
     justify-content: space-between;
+
+    @media only screen and (max-width: 600px) {
+      flex-direction: column;
+    }
 
     .title-container {
       .title {

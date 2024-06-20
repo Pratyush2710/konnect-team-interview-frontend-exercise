@@ -28,5 +28,9 @@ export default defineComponent({
   font-weight: 600;
   line-height: 2rem;
   padding: 1rem 3rem;
+  @media only screen and (max-width: 600px) {
+    font-size: 1rem;
+    padding: 1rem 1.2rem;
+  }
 }
 </style>
