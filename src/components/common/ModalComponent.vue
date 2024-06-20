@@ -5,6 +5,11 @@
     @touchstart="checkModalOverlayClicked"
   >
     <div role="dialog" aria-modal="true" class="modal-wrapper">
+      <slot name="close">
+        <div class="close-modal">
+          <button @click="$emit('close')">X</button>
+        </div>
+      </slot>
       <div class="modal-body">
         <slot>
           <h3>Modal content</h3>
@@ -52,6 +57,18 @@ export default defineComponent({
 
   .modal-body {
     padding: 3rem;
+  }
+  .close-modal {
+    float: right;
+    margin-right: 1%;
+    margin-top: 1%;
+    button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 1.6rem;
+      color: #1456cb;
+    }
   }
 }
 </style>
