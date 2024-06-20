@@ -35,7 +35,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch } from "vue";
+import { defineComponent, watch, onBeforeMount } from "vue";
+import { useRouter, useRoute } from 'vue-router';
 import useDebouncedRef from "@/composables/useDebouncedRef";
 import useServices from "@/composables/useServices";
 import useGetPaginatedData from "@/composables/useGetPaginatedData";
@@ -53,6 +54,8 @@ export default defineComponent({
   setup() {
     // Import services from the composable
     const { services, loading, getServices } = useServices();
+    const router = useRouter();
+    const { query } = useRoute();
 
     // Set the search string to a Vue ref
     const searchQuery = useDebouncedRef("", 300);
@@ -64,12 +67,30 @@ export default defineComponent({
       console.log({ newQuery });
       // Fetch services based on queryParam
       getServices(newQuery);
+      if (newQuery) {
+        router.replace({
+          query: {
+            ...query,
+            search: newQuery, 'page': 1
+          },
+        });
+      } else {
+        // Resetting query params on input clear
+        router.push({ query: {} });
+      }
       currentPage.value = 1
     });
 
     const createNewService = () => {
       alert('New Service created successfully')
     }
+    onBeforeMount(() => {
+      // Initialize searchQuery from parameters if present
+      const existingParams = query['search']
+      if (existingParams) {
+        searchQuery.value = existingParams
+      }
+    })
 
     return {
       services,
