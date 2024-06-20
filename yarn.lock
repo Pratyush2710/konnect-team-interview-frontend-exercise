@@ -6333,6 +6333,11 @@ vue-eslint-parser@^9.4.2, vue-eslint-parser@^9.4.3:
     lodash "^4.17.21"
     semver "^7.3.6"
 
+vue-router-mock@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/vue-router-mock/-/vue-router-mock-1.1.0.tgz#9e31bf261f9c37d2f944a7d441fcc1be51fc5a46"
+  integrity sha512-RhKhxkiZh2zB2eRkzfcCILQQ0ZUc0tk7CE2ZC1PGJYi5GOU+2QQAGHtTCgb8V4B/OPm9ws+X5Q9SQB5vyTXxBQ==
+
 vue-router@^4.2.5:
   version "4.3.3"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.3.3.tgz#7505509d429a36694b12ba1f6530016c5ce5f6bf"

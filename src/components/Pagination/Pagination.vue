@@ -4,6 +4,7 @@
     <button
       :disabled="isFirstPage || !isDataAvailable"
       @click="$emit('navigate', -1)"
+      data-testid="prev-navigation-btn"
     >
       &#8592;
     </button>
@@ -12,11 +13,12 @@
       ><b class="active-summary"> {{ startIndex }} to {{ endIndex }}</b> of
       {{ totalItems }} services
     </span>
-    <span v-else>No services </span>
+    <span v-else data-testid="empty-list">No services </span>
 
     <button
       :disabled="isLastPage || !isDataAvailable"
       @click="$emit('navigate', 1)"
+      data-testid="next-navigation-btn"
     >
       &#8594;
     </button>

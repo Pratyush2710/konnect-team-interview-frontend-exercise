@@ -1,5 +1,9 @@
 <template>
-  <ul class="avatar-list" v-if="usersToBeListed.length">
+  <ul
+    data-testid="avatar-list"
+    class="avatar-list"
+    v-if="usersToBeListed.length"
+  >
     <li v-for="(user, i) in usersToBeListed" :key="user?.id || i">
       <img v-if="user" :src="user.avatar" :alt="user.name" class="avatar" />
     </li>

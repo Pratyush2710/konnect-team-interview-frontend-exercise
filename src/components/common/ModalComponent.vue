@@ -1,6 +1,7 @@
 <template>
   <div
     class="container"
+    data-testid="modal-container"
     @click="checkModalOverlayClicked"
     @touchstart="checkModalOverlayClicked"
   >
@@ -10,7 +11,7 @@
           <button @click="$emit('close')">X</button>
         </div>
       </slot>
-      <div class="modal-body">
+      <div class="modal-body" data-testid="modal-body">
         <slot>
           <h3>Modal content</h3>
         </slot>
@@ -65,9 +66,9 @@ export default defineComponent({
     button {
       background-color: transparent;
       border: none;
+      color: #1456cb;
       cursor: pointer;
       font-size: 1.6rem;
-      color: #1456cb;
     }
   }
 }

@@ -2,7 +2,11 @@
   <header>
     <div class="navbar">
       <router-link to="/">
-        <img alt="Kong logo" src="/logo/kong-logo.svg" />
+        <img
+          alt="Kong logo"
+          src="/logo/kong-logo.svg"
+          data-testid="kong-logo"
+        />
       </router-link>
       <div class="navbar-list">
         <template v-for="option in menuOptions" :key="option.title">
@@ -33,27 +37,12 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { type MenuItem } from "@/common/types.ts";
+import { HeaderMenuItem } from "./utils";
 export default defineComponent({
   name: "AppHeader",
   data() {
     return {
-      menuOptions: [
-        {
-          title: "Organization",
-          src: "/icons/organisation.svg",
-          action: () => {
-            alert("Organizations HomePage!");
-          },
-        },
-        {
-          title: "Settings",
-          src: "/icons/settings.svg",
-          action: () => {
-            alert("Settings HomePage!");
-          },
-        },
-      ] as MenuItem[],
+      menuOptions: HeaderMenuItem,
     };
   },
 });
@@ -147,4 +136,3 @@ header {
   }
 }
 </style>
-import type { cursorTo } from "readline";

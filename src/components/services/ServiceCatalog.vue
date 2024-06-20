@@ -53,13 +53,11 @@
       }}
     </div>
     <Teleport to="#modal">
-      <Transition>
-        <ModalComponent v-if="isModalVisible" @close="hideModal">
-          <template v-if="selectedServiceData">
-            <ServiceDetails :service="selectedServiceData" />
-          </template>
-        </ModalComponent>
-      </Transition>
+      <ModalComponent v-if="isModalVisible" @close="hideModal">
+        <template v-if="selectedServiceData">
+          <ServiceDetails :service="selectedServiceData" />
+        </template>
+      </ModalComponent>
     </Teleport>
   </div>
 </template>
@@ -117,7 +115,6 @@ export default defineComponent({
     } = useGetPaginatedData(services);
 
     watch(searchQuery, (newQuery) => {
-      console.log({ newQuery });
       // Fetch services based on queryParam
       getServices(newQuery);
       if (newQuery) {
@@ -264,16 +261,5 @@ export default defineComponent({
   min-height: 24rem;
   padding: 2rem;
   width: 42rem;
-}
-
-/* Transition for modal */
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
 }
 </style>

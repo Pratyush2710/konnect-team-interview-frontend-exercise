@@ -1,7 +1,9 @@
-import { vi, describe, it, expect } from "vitest";
+import { vi, describe, it, expect, beforeEach } from "vitest";
 import { mount } from "@vue/test-utils";
-import ServiceCatalog from "./ServiceCatalog.vue";
-import servicesData from "../../../mocks/services";
+import { createRouterMock, injectRouterMock } from "vue-router-mock";
+import servicesData from "../../../../mocks/services";
+import ServiceCatalog from "../ServiceCatalog.vue";
+import ServiceCardVue from "../ServiceCard.vue";
 
 // Mock the axios module for fetching API services
 const mockedResponses = new Map().set(
@@ -10,6 +12,16 @@ const mockedResponses = new Map().set(
     data: servicesData,
   }))
 );
+
+/**
+ * Source: https://www.npmjs.com/package/vue-router-mock
+ * Added library
+ */
+const router = createRouterMock();
+beforeEach(() => {
+  router.reset(); // reset the router state
+  injectRouterMock(router);
+});
 
 vi.mock("axios", async () => {
   const actual: any = await vi.importActual("axios");
@@ -30,12 +42,22 @@ vi.mock("axios", async () => {
 });
 
 // Example component test for ServiceCatalog.vue
-describe("ServiceCatalog", () => {
+describe("ServiceCatalog tests", () => {
   it("shows the search input", async () => {
     // No `mockedResponses` modification needed; just use the default mocked response
     const wrapper = mount(ServiceCatalog);
 
     expect(wrapper.findTestId("search-input").isVisible()).toBe(true);
+  });
+
+  it("renders the service catalog header", () => {
+    const wrapper = mount(ServiceCatalog);
+
+    // Assert the presence of title and subtitle elements
+    expect(wrapper.find(".title-container .title").text()).toBe("Service Hub");
+    expect(wrapper.find(".title-container .subtitle").text()).toContain(
+      "Organize services"
+    );
   });
 
   it("properly handles no services returned from the API", async () => {
