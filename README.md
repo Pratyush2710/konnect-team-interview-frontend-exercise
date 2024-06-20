@@ -7,31 +7,110 @@ Assignment live link: https://kong-assignment.netlify.app/
 Full demo: https://drive.google.com/file/d/1WxjLKLPNAPSmRmTJjRFHxIhdFel3vQps/view?usp=sharing
 
 ### Service List page
+
 ![image](https://github.com/Pratyush2710/konnect-team-interview-frontend-exercise/assets/30828006/694608dc-d2ba-48cf-9b52-827460821798)
 
 ### Service list - with a search query
+
 ![image](https://github.com/Pratyush2710/konnect-team-interview-frontend-exercise/assets/30828006/a30ae443-6460-47f6-b39b-ff01339ef345)
 
-### Client-side pagination with search and page in query param 
+### Client-side pagination with search and page in query param
+
 ![image](https://github.com/Pratyush2710/konnect-team-interview-frontend-exercise/assets/30828006/8797e491-ba2e-4d28-a03a-e0decb17fb71)
 
 ### Service with service details
+
 ![image](https://github.com/Pratyush2710/konnect-team-interview-frontend-exercise/assets/30828006/6a67b7a3-2fb9-450f-a98b-fa5db44e6756)
 
 ### No result page page
+
 ![image](https://github.com/Pratyush2710/konnect-team-interview-frontend-exercise/assets/30828006/c2845148-f99c-45d6-ba7a-4e0f2ea4da8b)
 
 ### 404 Page
-![image](https://github.com/Pratyush2710/konnect-team-interview-frontend-exercise/assets/30828006/46ee0039-8c69-41b2-a0c9-83ed124ed18c)
 
+![image](https://github.com/Pratyush2710/konnect-team-interview-frontend-exercise/assets/30828006/46ee0039-8c69-41b2-a0c9-83ed124ed18c)
 
 ![image](https://github.com/Pratyush2710/konnect-team-interview-frontend-exercise/assets/30828006/66a997a5-5118-4832-b52b-99c008e3143d)
 ![image](https://github.com/Pratyush2710/konnect-team-interview-frontend-exercise/assets/30828006/fbb9a881-aba9-4206-932c-0eb871e48593)
 ![image](https://github.com/Pratyush2710/konnect-team-interview-frontend-exercise/assets/30828006/ed7889b1-2d5d-4518-b5da-99e1b63899ba)
 <img width="408" alt="image" src="https://github.com/Pratyush2710/konnect-team-interview-frontend-exercise/assets/30828006/565de4e7-8636-41b2-a377-bc37eef4d79d">
 
+<hr/>
 
+### Design considerations, assumptions, and trade-offs
 
+- **Assets and colors from figma**:
+
+  - Except the left/right arrow in the pagination, all icons are extracted as SVG from the figma link along with color scheme.
+
+- **Card Sizing and Layout**:
+
+  - A minimum height of 24rem for each card to ensure consistent presentation across devices, preventing content overflow on smaller screens. Flexbox layout to allow cards to automatically adjust based on available width, and to create a visually appealing and adaptable interface.
+
+- **Card Display and Pagination:**
+  - Displayed a maximum of 10 cards by default with client-side pagination to optimize initial page load speed and user experience. This approach allows users to easily navigate through large datasets without overwhelming them with information.
+  - The current page limit is set to 10, however can be configured to [10, 20, 50] through UI elements to provide flexibility for users who prefer a different card density.
+- **Search and State Management:**
+  - Stored search key and page number in the URL query parameters to facilitate seamless sharing of search results and user state across sessions. This approach makes it easy for users to bookmark specific search results or share them with colleagues.
+- **Service Details and User Experience:**
+  - Utilized a modal for displaying detailed service information as limited information is available in Versions DTO and to avoid overwhelming users with unnecessary information and to let users to delve deeper into specific details when needed without losing context.
+- **Accessibility:**
+  - Included alt tags for images for fallback to understand the content of images, even if they fail to load and aria-labels for custom modals.
+- **Error Handling:**
+  - 404 error page for uncaptured routes to provide a user-friendly experience by informing users of an invalid request and potentially guiding them to the correct location ( Homepage here ).
+- **Pagination Robustness:**
+
+  - Validated user input for pagination buttons to prevent errors and to ensure users cannot navigate to non-existent pages. Visual cues are provided (disabled buttons) for first and last pages nav buttons.
+
+- **Responsive Design:**
+
+  - Utilized flexboxes and rem units to create a responsive and adaptive layouts across various screen sizes. Media queries for mobile devices with specific adjustments (e.g., card layout, font size) are added to further enhance UX by optimizing the interface for smaller screens.
+
+- **Modal Interaction:**
+  - Included canCloseOnEscape and canCloseOnOutsideClick events for modals to allow users to close them conveniently on focus lose and esc button for better user experience.
+- **Component-Based Architecture:**
+  - The application utilizes a component-based architecture, promoting code reusability and maintainability. Each component represents a specific UI element or functionality.
+- **JSDoc and types integration :**
+  - JSDocs are added for all composable and generic types for component and utils
+
+### Project Structure
+
+The project is structured to organize components, composables, utilities, and types:
+
+- **src/**
+  - **common/**
+    - types - Contains generic type definitions used throughout the application.
+    - utils - Houses common utility functions used by various components.
+  - **components/**
+    - **common/** - Reusable components like AvatarTiles, ModalComponent, PrimaryButton, and StatusBar.
+  - **Header/** - Contains the Header component for the application header.
+  - **Pagination/** - Holds the Pagination component for managing page navigation.
+  - **services/** - Components related to displaying and managing services:
+    - **ServiceCard/** - Individual service card component.
+    - **ServiceCardSkeleton/** - Placeholder component for loading services.
+    - **ServiceCatalog/** - Overview component for displaying services.
+    - **ServiceDetails/** - Detailed view of an individual service.
+    - **ServiceVersions/** - Component for managing service versions.
+  - **composables/** - Folder containing reusable composable functions:
+    - **useDebouncedRef** - Handles creating a debounced ref for values.
+    - **useGetPaginatedData** - Manages paginated data fetching and provides properties and methods for components to display and navigate through paginated content.
+    - **useModal** - Controls the visibility and logic of modal components.
+    - **useServices** - Manages fetching and error state for service data.
+  - **views** - Top-level components representing application views:
+    - **ErrorPage** - Component for displaying error states.
+    - **PageHome** - The main application page.
+
+<hr/>
+
+### Future scope unable to implement due to limited time
+
+- New service CRUD flow
+- Internationalization
+- Client side caching for search API
+- State management of service via store pinia
+- Storing service id in the URL as well for scoped URL of pagination and service data
+
+<hr/>
 
 # Welcome
 
