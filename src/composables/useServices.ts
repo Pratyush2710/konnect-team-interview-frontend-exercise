@@ -5,7 +5,7 @@ import type { Service } from '../common/types'
 // This composable is a simplified example for the exercise **and could likely be improved**.
 // Feel free to leave as-is, modify, or remove this file (and any others) as desired.
 // https://vuejs.org/guide/reusability/composables.html
-
+const API_URL = 'https://konnect-team-interview-frontend-exercise.onrender.com/api/services'
 export default function useServices(): any {
   const services = ref<Service[]>([])
   const loading = ref<boolean>(false)
@@ -18,9 +18,8 @@ export default function useServices(): any {
 
       // Fetch data from the API
       const response: AxiosResponse<Service[]> = await axios.get(
-        process.env.NODE_ENV !== 'production'
-          ? '/api/services'
-          : 'https://konnect-team-interview-frontend-exercise.onrender.com/api/services',
+        API_URL,
+        // process.env.NODE_ENV !== "production" ? "/api/services" : API_URL,
         { params: { q: query } },
       )
 

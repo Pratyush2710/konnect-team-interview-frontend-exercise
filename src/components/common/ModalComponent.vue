@@ -67,17 +67,18 @@ export default defineComponent({
 
   .modal-body {
     padding: 3rem;
+    padding-top: 1rem;
   }
   .close-modal {
-    float: right;
-    margin-right: 1%;
-    margin-top: 1%;
+    padding: 0.5rem 0.5rem 0 0;
+    text-align: right;
     button {
       background-color: transparent;
       border: none;
       color: #1456cb;
       cursor: pointer;
       font-size: 1.6rem;
+      padding: 1rem 1rem 0 0;
     }
   }
 }

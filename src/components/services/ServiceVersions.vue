@@ -118,6 +118,9 @@ export default defineComponent({
       font-size: 1.2rem;
       line-height: 1.6rem;
       width: 50rem;
+      @media only screen and (max-width: 600px) {
+        width: 20rem;
+      }
     }
 
     .type-tag {
