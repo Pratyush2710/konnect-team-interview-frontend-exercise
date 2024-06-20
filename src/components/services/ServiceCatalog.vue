@@ -28,7 +28,17 @@
       </div>
     </div>
 
-    <template v-if="paginatedListItems.length">
+    <div
+      v-if="loading"
+      class="catalog"
+    >
+      <ServiceCardSkeleton
+        v-for="ii in PAGE_SIZE"
+        :key="ii"
+      />
+    </div>
+
+    <template v-else-if="paginatedListItems.length">
       <div class="catalog">
         <section
           v-for="service in paginatedListItems"
@@ -84,7 +94,9 @@ import PrimaryButton from '@/components/common/PrimaryButton.vue'
 import Pagination from '@/components/Pagination/PaginationComponent.vue'
 import ModalComponent from '@/components/common/ModalComponent.vue'
 import ServiceDetails from '@/components/services/ServiceDetails.vue'
+import ServiceCardSkeleton from '@/components/services/ServiceCardSkeleton.vue'
 
+const PAGE_SIZE = 10
 export default defineComponent({
   name: 'ServiceCatalog',
   components: {
@@ -93,6 +105,7 @@ export default defineComponent({
     Pagination,
     ServiceDetails,
     ModalComponent,
+    ServiceCardSkeleton,
   },
   setup() {
     // Import services from the composable
@@ -177,6 +190,7 @@ export default defineComponent({
       createNewService,
       handlePagination,
       onServiceCardClick,
+      PAGE_SIZE,
     }
   },
 })
@@ -250,6 +264,20 @@ export default defineComponent({
     line-height: 2.4rem;
     margin-top: 30rem;
     text-align: center;
+  }
+
+  .service-card-skeleton-loader {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    background: gainsboro;
+    border-radius: 0.2rem;
+    height: 24rem;
+    width: 42rem;
+
+    @keyframes pulse {
+      50% {
+        opacity: 0.5;
+      }
+    }
   }
 }
 
