@@ -149,9 +149,9 @@ export default defineComponent({
       text-align: right;
 
       .user-image {
+        border-radius: 50%;
         height: 3rem;
         width: 3rem;
-        border-radius: 50%;
       }
     }
 
