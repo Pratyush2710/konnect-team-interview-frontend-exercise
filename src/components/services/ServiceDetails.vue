@@ -103,6 +103,10 @@ export default defineComponent({
   .metadata-container {
     display: flex;
     gap: 5rem;
+    @media only screen and (max-width: 600px) {
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
   }
 }
 </style>

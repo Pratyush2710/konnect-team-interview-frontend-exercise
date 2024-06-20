@@ -88,6 +88,11 @@ export default defineComponent({
   justify-content: space-between;
   padding: 0.5rem 0 0.25rem 0;
 
+  @media only screen and (max-width: 600px) {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
   &:first-child {
     border-top: none;
   }
@@ -97,6 +102,10 @@ export default defineComponent({
     display: flex;
     gap: 3.2rem;
 
+    @media only screen and (max-width: 600px) {
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
     .name {
       color: #262626;
       font-size: 1.3rem;
