@@ -33,8 +33,13 @@ export interface Developer {
   avatar: string;
 }
 
-//  COMPOSABLE TYPES
+export interface MenuItem {
+  title: string;
+  src: string;
+  action: () => void;
+}
 
+//  COMPOSABLE TYPES
 export interface UseGetPaginatedDataReturnType {
   currentPage: Ref<number>;
   totalPageCount: Ref<number>;

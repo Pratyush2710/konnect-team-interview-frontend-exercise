@@ -6,51 +6,77 @@
         <p class="subtitle">
           Organize services, manage and track versioning and API service
           documentation. <a href="/docs">Learn More</a>
-
         </p>
       </div>
       <div class="input-container">
         <label>
-          <input v-model="searchQuery" class="search-input" data-testid="search-input" placeholder="Search"
-            type="search" />
+          <input
+            v-model="searchQuery"
+            class="search-input"
+            data-testid="search-input"
+            placeholder="Search"
+            type="search"
+          />
         </label>
 
-        <PrimaryButton @click:event="createNewService()" :label="`+ Service Package`" />
+        <PrimaryButton
+          @click:event="createNewService()"
+          :label="`+ Service Package`"
+        />
       </div>
     </div>
 
     <template v-if="paginatedListItems.length">
       <div class="catalog">
-        <section v-for="service in paginatedListItems" :key="service.id" class="service-card">
+        <section
+          v-for="service in paginatedListItems"
+          :key="service.id"
+          class="service-card"
+          @click="onServiceCardClick(service)"
+        >
           <ServiceCard :service="service" />
         </section>
       </div>
-      <Pagination v-if="totalPageCount > 1" :totalItems="totalListItems" :currentPage="currentPage"
-        :totalPages="totalPageCount" @navigate="handlePagination" />
+      <Pagination
+        v-if="totalPageCount > 1"
+        :totalItems="totalListItems"
+        :currentPage="currentPage"
+        :totalPages="totalPageCount"
+        @navigate="handlePagination"
+      />
     </template>
     <div v-else data-testid="no-results" class="no-results">
-      {{ searchQuery ? `No services found for '${searchQuery}'` : 'No services present. ' }}
+      {{
+        searchQuery
+          ? `No services found for '${searchQuery}'`
+          : "No services present. "
+      }}
     </div>
     <Teleport to="#modal">
       <Transition>
-        <ModalComponent v-if="isModalVisible" @close="hideModal"></ModalComponent>
+        <ModalComponent v-if="isModalVisible" @close="hideModal">
+          <template v-if="selectedServiceData">
+            <ServiceDetails :service="selectedServiceData" />
+          </template>
+        </ModalComponent>
       </Transition>
     </Teleport>
-    <button @click="openConfirm">Open Modal</button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, onBeforeMount, markRaw } from "vue";
-import { useRouter, useRoute } from 'vue-router';
+import { defineComponent, watch, onBeforeMount, markRaw, ref } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { type Service } from "@/common/types.ts";
 import useDebouncedRef from "@/composables/useDebouncedRef";
 import useServices from "@/composables/useServices";
 import useModal from "@/composables/useModal";
 import useGetPaginatedData from "@/composables/useGetPaginatedData";
 import ServiceCard from "@/components/services/ServiceCard.vue";
-import PrimaryButton from '@/components/common/PrimaryButton.vue'
-import Pagination from '@/components/Pagination/Pagination.vue'
-import ModalComponent from '@/components/common/ModalComponent.vue'
+import PrimaryButton from "@/components/common/PrimaryButton.vue";
+import Pagination from "@/components/Pagination/Pagination.vue";
+import ModalComponent from "@/components/common/ModalComponent.vue";
+import ServiceDetails from "@/components/services/ServiceDetails.vue";
 
 export default defineComponent({
   name: "ServiceCatalog",
@@ -58,26 +84,37 @@ export default defineComponent({
     ServiceCard,
     PrimaryButton,
     Pagination,
-    ModalComponent
+    ServiceDetails,
+    ModalComponent,
   },
   setup() {
     // Import services from the composable
     const { services, loading, getServices } = useServices();
     const router = useRouter();
     const { query } = useRoute();
-    const { show: isModalVisible, component, showModal, hideModal } = useModal();
+    const {
+      show: isModalVisible,
+      component,
+      showModal,
+      hideModal,
+    } = useModal();
 
     const openConfirm = () => {
       component.value = markRaw(ModalComponent);
-      showModal()
-    }
-
+      showModal();
+    };
 
     // Set the search string to a Vue ref
     const searchQuery = useDebouncedRef("", 300);
+    const selectedServiceData = ref<Service | undefined>();
 
-    const { currentPage, totalPageCount, totalListItems, paginatedListItems, handlePagination } =
-      useGetPaginatedData(services);
+    const {
+      currentPage,
+      totalPageCount,
+      totalListItems,
+      paginatedListItems,
+      handlePagination,
+    } = useGetPaginatedData(services);
 
     watch(searchQuery, (newQuery) => {
       console.log({ newQuery });
@@ -87,26 +124,33 @@ export default defineComponent({
         router.replace({
           query: {
             ...query,
-            search: newQuery, 'page': 1
+            search: newQuery,
+            page: 1,
           },
         });
       } else {
         // Resetting query params on input clear
         router.push({ query: {} });
       }
-      currentPage.value = 1
+      currentPage.value = 1;
     });
 
     const createNewService = () => {
-      alert('New Service created successfully')
-    }
+      alert("New Service created successfully");
+    };
+
+    const onServiceCardClick = (selectedService: Service): void => {
+      selectedServiceData.value = selectedService;
+      openConfirm();
+    };
+
     onBeforeMount(() => {
       // Initialize searchQuery from parameters if present
-      const existingParams = query['search'] as string
+      const existingParams = query["search"] as string;
       if (existingParams) {
-        searchQuery.value = existingParams
+        searchQuery.value = existingParams;
       }
-    })
+    });
 
     return {
       isModalVisible,
@@ -118,10 +162,12 @@ export default defineComponent({
       totalPageCount,
       totalListItems,
       paginatedListItems,
+      selectedServiceData,
       hideModal,
       openConfirm,
       createNewService,
-      handlePagination
+      handlePagination,
+      onServiceCardClick,
     };
   },
 });
@@ -182,7 +228,6 @@ export default defineComponent({
         padding-left: 3rem;
         width: 21rem;
       }
-
     }
   }
 
@@ -206,7 +251,8 @@ export default defineComponent({
   align-self: auto;
   background-color: #fff;
   border-radius: 0.2rem;
-  box-shadow: 0px 0px 2px rgba(40, 41, 61, 0.04), 0px 4px 8px rgba(96, 97, 112, 0.16);
+  box-shadow: 0px 0px 2px rgba(40, 41, 61, 0.04),
+    0px 4px 8px rgba(96, 97, 112, 0.16);
   cursor: pointer;
   display: flex;
   flex-direction: column;

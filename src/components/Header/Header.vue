@@ -1,11 +1,3 @@
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  name: "AppHeader",
-});
-</script>
-
 <template>
   <header>
     <div class="navbar">
@@ -13,24 +5,17 @@ export default defineComponent({
         <img alt="Kong logo" src="/logo/kong-logo.svg" />
       </router-link>
       <div class="navbar-list">
-        <span class="navbar-list-item">
-          <img
-            height="20px"
-            width="20px"
-            src="/icons/organisation.svg"
-            alt="organisation icon"
-          />
-          Organization
-        </span>
-        <span class="navbar-list-item">
-          <img
-            height="20px"
-            width="20px"
-            src="/icons/settings.svg"
-            alt="settings icon"
-          />
-          Settings
-        </span>
+        <template v-for="option in menuOptions" :key="option.title">
+          <span class="navbar-list-item" @click="option.action">
+            <img
+              height="20px"
+              width="20px"
+              :src="option.src"
+              :alt="option.title"
+            />
+            {{ option.title }}
+          </span>
+        </template>
       </div>
     </div>
 
@@ -45,6 +30,34 @@ export default defineComponent({
     </div>
   </header>
 </template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+import { type MenuItem } from "@/common/types.ts";
+export default defineComponent({
+  name: "AppHeader",
+  data() {
+    return {
+      menuOptions: [
+        {
+          title: "Organization",
+          src: "/icons/organisation.svg",
+          action: () => {
+            alert("Organizations HomePage!");
+          },
+        },
+        {
+          title: "Settings",
+          src: "/icons/settings.svg",
+          action: () => {
+            alert("Settings HomePage!");
+          },
+        },
+      ] as MenuItem[],
+    };
+  },
+});
+</script>
 
 <style lang="scss" scoped>
 header {
@@ -73,11 +86,20 @@ header {
 .navbar-list {
   display: flex;
   gap: 2rem;
+  height: 100%;
 
   .navbar-list-item {
     align-items: center;
+    border-radius: 0.5rem;
     display: flex;
     gap: 1rem;
+    padding-inline: 1rem;
+
+    &:hover {
+      background-color: #ffffff1a;
+      cursor: pointer;
+      opacity: 1;
+    }
   }
 }
 
@@ -105,3 +127,4 @@ header {
   }
 }
 </style>
+import type { cursorTo } from "readline";
